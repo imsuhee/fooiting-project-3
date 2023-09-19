@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { localurl } from "../utils/localUrl";
 
+//마이페이지 관련 페이지 아직 구현 x
+
 function SamplePage() {
   const [result, setResult] = useState(null);
 

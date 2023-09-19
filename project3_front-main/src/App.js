@@ -11,6 +11,7 @@ import MainListPage from "./components/MainListPage";
 import SignUpPage from "./components/SignUpPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import MyPage from "./components/MyPage/MyPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/LoginPage" element={<LoginPage />} />
           <Route path="/SignUpPage" element={<SignUpPage />} />
           <Route path="/UserProfile" element={<UserProfile />} />
+          <Route path="/MyPage" element={<MyPage />} />
           {/* <Route path="/RegisterPage" element={<RegisterPage />} /> */}
           <Route path="/SamplePage" element={<SamplePage />} />
           <Route path="/RestaurantForm" element={<RestaurantForm />} />
