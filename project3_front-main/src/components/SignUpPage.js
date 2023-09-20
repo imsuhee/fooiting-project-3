@@ -6,12 +6,12 @@ import "../Style/Login.css";
 
 //회원가입 완료
 function SignupPage() {
-  const [idValue, setId] = useState(""); // 사용자 ID
-  const [pwValue, setPw] = useState(""); // 비밀번호
-  const [nickValue, setNick] = useState(""); // 사용자 이름
-  const [memail, setMemail] = useState(""); // 이메일
-  const [mbirthDate, setMbirthDate] = useState(""); // 생일
-  const [mphoneNumber, setMphoneNumber] = useState(""); // 핸드폰 번호 입력 관련 상태와 함수 추가
+  const [username, setUsername] = useState(""); // 사용자 ID
+  const [password, setPassword] = useState(""); // 비밀번호
+  const [nickname, setNickname] = useState(""); // 사용자 이름
+  const [email, setEmail] = useState(""); // 이메일
+  const [birth, setBirth] = useState(""); // 생일
+  const [phoneNumber, setPhoneNumber] = useState(""); // 핸드폰 번호 입력 관련 상태와 함수 추가
 
   // 약관 동의 상태 관리
   const [agreed, setAgreed] = useState(false);
@@ -20,7 +20,7 @@ function SignupPage() {
 
   //각 아이디, 비번, 이메일, 생년월일,연락처 정규식
   const userid = /^[A-Za-z0-9_-]{5,20}$/; //대소문자,숫자,_,- 길이 5~20이하
-  const username = /^[A-Za-z가-힣]{2,20}$/; //대소문자or 한글만 길이2~20이하
+  const usename = /^[A-Za-z가-힣]{2,20}$/; //대소문자or 한글만 길이2~20이하
   const userpassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/; //하나의 대소문자,숫자,특수문자 길이 8~16이하
   const emailRegex =
@@ -30,19 +30,19 @@ function SignupPage() {
   const phoneNumberRegex = /^(\d{0,3}-?\d{0,4}-?\d{0,4})?$/; //숫자,- 구분
 
   useEffect(() => {
-    if (mphoneNumber.length === 11) {
-      setMphoneNumber((prevInputValue) =>
+    if (phoneNumber.length === 11) {
+      setPhoneNumber((prevInputValue) =>
         prevInputValue.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
       );
     }
-    if (mphoneNumber.length === 13) {
-      setMphoneNumber((prevInputValue) =>
+    if (phoneNumber.length === 13) {
+      setPhoneNumber((prevInputValue) =>
         prevInputValue
           .replace(/-/g, "-")
           .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
       );
     }
-  }, [mphoneNumber]);
+  }, [phoneNumber]);
 
   const handleRegister = () => {
     // 아이디와 비밀번호가 패턴과 일치하는지 확인
@@ -65,12 +65,12 @@ function SignupPage() {
 
       // 서버에 전송될 데이터 포맷 변경
       body: JSON.stringify({
-        mid: idValue,
-        mpw: pwValue,
-        nickname: nickValue,
-        memail: memail,
-        mbirthDate: mbirthDate,
-        mphoneNumber: mphoneNumber,
+        mid: username,
+        mpw: password,
+        nickname: nickname,
+        email: email,
+        birth: birth,
+        phoneNumber: phoneNumber,
       }),
     })
       .then((response) => {
@@ -126,8 +126,8 @@ function SignupPage() {
         >
           {/*아이디 input 안 내용물*/}
           <Input
-            value={idValue}
-            onChange={(e) => setId(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             size="large"
             placeholder="아이디"
           />
@@ -135,7 +135,7 @@ function SignupPage() {
         {/*이름*/}
         <Form.Item
           label=""
-          name="username"
+          name="usename"
           rules={[
             {
               required: true,
@@ -143,15 +143,15 @@ function SignupPage() {
             },
 
             {
-              pattern: username,
+              pattern: usename,
               message: "• 이름: 필수 정보입니다.",
             },
           ]}
         >
           {/*이름 input 안 내용물*/}
           <Input
-            value={nickValue}
-            onChange={(e) => setNick(e.target.value)}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
             size="large"
             placeholder="이름"
           />
@@ -173,8 +173,8 @@ function SignupPage() {
           ]}
         >
           <Input.Password
-            value={pwValue}
-            onChange={(e) => setPw(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             size="large"
             placeholder="비밀번호"
           />
@@ -222,8 +222,8 @@ function SignupPage() {
         >
           {/*이메일input 안 내용물*/}
           <Input
-            value={memail}
-            onChange={(e) => setMemail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             size="large"
             placeholder="이메일"
           />
@@ -246,8 +246,8 @@ function SignupPage() {
         >
           {/*생년월일input 안 내용물*/}
           <Input
-            value={mbirthDate}
-            onChange={(e) => setMbirthDate(e.target.value)}
+            value={birth}
+            onChange={(e) => setBirth(e.target.value)}
             size="large"
             placeholder="생년월일 (예: 19900101)"
           />
@@ -272,8 +272,8 @@ function SignupPage() {
 
           <Input
             size="large"
-            value={mphoneNumber}
-            onChange={(e) => setMphoneNumber(e.target.value)}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="핸드폰 번호 입력"
           />
         </Form.Item>
