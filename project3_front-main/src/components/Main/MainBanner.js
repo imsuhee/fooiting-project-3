@@ -52,11 +52,11 @@ function Banner() {
                 {/* API_URL을 사용하여 서버로부터 베너 이미지의 경로를 설정합니다. */}
                 {/* <img src={`${localurl}/${banner.imageUrl}`} alt="" />
                 <img src={restaurant.image} alt={restaurant.name} /> */}
-                <img
+                {/* <img
                   key={index}
                   src={`${localurl}/store/${id}/image/${restaurantImageId}`}
                   alt={`${restaurant.name}-${index}`}
-                />
+                /> */}
               </div>
             </Link>
           );

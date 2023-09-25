@@ -1,68 +1,87 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { localurl } from "../utils/localUrl";
 import { formatTime } from "../utils/formatTime";
 import KakaoMap from "./KakaoMap";
+import { useNavigate } from "react-router-dom";
 
-// 지금은 상세페이지 아님(수정 필요) (재만님담당)
+//식당 상세페이지 (재만님 담당)
 function RestaurantDetailPage() {
-  const [restaurants, setRestaurants] = useState([]);
+  const { id } = useParams();
+  const [restaurant, setRestaurant] = useState(null); // 이 부분은 식당 하나의 상세 정보만을 가져오도록 수정하였습니다.
+  const navigate = useNavigate();
 
-  // 삭제 버튼 클릭시 해당 식당 삭제
-  const deleteRestaurant = (id) => {
-    fetch(`${localurl}/store/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          // 성공적으로 삭제된 경우, 리스트에서 해당 항목을 제거
-          setRestaurants(
-            restaurants.filter((restaurant) => restaurant.id !== id)
-          );
-        } else {
-          console.error("Error deleting restaurant");
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting restaurant: ", error);
-      });
-  };
-
-  // 마운트시 전체 등록된 식당 전체 출력
   useEffect(() => {
-    fetch(`${localurl}/store/list`, {
+    fetch(`${localurl}/store/${id}`, {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
-        setRestaurants(data);
+        setRestaurant(data);
       })
       .catch((error) => {
         console.error("Error uploading data: ", error);
       });
-  }, []);
+  }, [id]);
+
+  const reserveRestaurant = () => {
+    const reservationData = {
+      restaurantId: id,
+    };
+
+    const token = localStorage.getItem("refreshToken");
+
+    fetch(`${localurl}/user/reserve`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(reservationData),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert("예약이 완료되었습니다.");
+          navigate("/user/mypage");
+        } else if (response.status === 401) {
+          alert("예약은 로그인이 필요합니다.");
+          navigate("/user/login");
+        } else if (response.status === 409) {
+          alert("중복된 예약이 존재합니다.");
+          navigate("/user/mypage");
+        } else {
+          alert("예약에 실패하셨습니다.");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  if (!restaurant) return <div>Loading....</div>;
 
   return (
     <div>
       <h3>식당 상세 정보 페이지</h3>
-      <ul>
-        {restaurants.map((restaurant) => (
-          <li key={restaurant.id}>
-            <h4>{restaurant.name}</h4>
-            <KakaoMap location={restaurant.location} />
-            <p>위치: {restaurant.location}</p>
-            <p>카테고리: {restaurant.category}</p>
-            <p>설명: {restaurant.description}</p>
-            <p>오픈 시간: {formatTime(restaurant.openingTime)}</p>
-            <p>마감 시간: {formatTime(restaurant.closingTime)}</p>
-            <img src={restaurant.image} alt={restaurant.name} />
-            <p>전화번호: {restaurant.callNumber}</p>
-            <p>예약 횟수: {restaurant.reservationCount}</p>
-            <button onClick={() => deleteRestaurant(restaurant.id)}>
-              DELETE
-            </button>
-          </li>
+      <h4>{restaurant.name}</h4>
+      <KakaoMap location={restaurant.location} />
+      <p>위치: {restaurant.location}</p>
+      <p>카테고리: {restaurant.category}</p>
+      <p>설명: {restaurant.description}</p>
+      <p>오픈 시간: {formatTime(restaurant.openingTime)}</p>
+      <p>마감 시간: {formatTime(restaurant.closingTime)}</p>
+      {restaurant.imageIds &&
+        restaurant.imageIds.map((restaurantImageId, index) => (
+          <img
+            key={index}
+            src={`${localurl}/store/${id}/image/${restaurantImageId}`}
+            alt={`${restaurant.name}-${index}`}
+            width={"200"}
+          />
         ))}
-      </ul>
+      <p>전화번호: {restaurant.callNumber}</p>
+      <button onClick={reserveRestaurant}>예약하기</button>
     </div>
   );
 }

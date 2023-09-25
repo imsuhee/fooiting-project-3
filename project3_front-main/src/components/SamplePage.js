@@ -12,7 +12,8 @@ function SamplePage() {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
-      throw "Cannot Find Access Token";
+      // throw "Cannot Find Access Token";
+      throw new Error("Cannot Find Access Token"); // 에러 객체를 던집니다.
     }
 
     const authHeader = { Authorization: `Bearer ${accessToken}` };
@@ -34,14 +35,15 @@ function SamplePage() {
           return callServer();
         }
 
-        throw data.msg;
+        // throw data.msg;
+        throw new Error(data.msg); // 에러 객체를 던집니다.
       }
 
       return await response.json();
     } catch (err) {
       throw err;
     }
-  }, []);
+  }, [callRefresh]);
 
   const callRefresh = useCallback(async () => {
     const accessToken = localStorage.getItem("accessToken");

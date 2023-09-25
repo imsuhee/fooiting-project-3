@@ -28,8 +28,6 @@ function LoginPage() {
   };
 
   const doLogin = () => {
-    // console.log("Login!!");
-
     fetch(`${localurl}/generateToken`, {
       method: "POST",
       headers: {
@@ -45,7 +43,6 @@ function LoginPage() {
         return response.text();
       })
       .then((textData) => {
-        //console.log(textData);
         // 텍스트 데이터를 JSON으로 변환
         const jsonData = JSON.parse(textData);
         // 토큰 정보 콘솔 출력
@@ -53,8 +50,9 @@ function LoginPage() {
         // 로컬 스토리지에 저장
         localStorage.setItem("accessToken", jsonData.accessToken);
         localStorage.setItem("refreshToken", jsonData.refreshToken);
-        // 로그인시 새로고침(삭제 예정)
+        // 로그인시 메인페이지 이동
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         // 페이지 이동 또는 다른 작업 수행
@@ -65,19 +63,20 @@ function LoginPage() {
       });
   };
 
-  // 임시 로그아웃(발행한 토큰을 삭제하는 기능으로)
   // 로그아웃시 메인 홈페이지로 돌아가게끔 구현해야된다
   const doTempLogout = () => {
     try {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      alert("로그아웃 되셨습니다.");
       // 로그아웃시 새로고침
+      window.location.reload();
       navigate("/");
     } catch (error) {
       // 페이지 이동 또는 다른 작업 수행
-      console.error("로그인 에러:", error);
+      console.error("로그아웃 에러:", error);
       message.error(
-        `로그인 중 오류가 발생했습니다. 자세한 정보: ${error.message}`
+        `로그아웃 중 오류가 발생했습니다. 자세한 정보: ${error.message}`
       );
     }
   };
@@ -213,7 +212,7 @@ function LoginPage() {
         <Button
           className="login-form-button"
           type="submit"
-          onClick={() => navigate("../Signup")}
+          onClick={() => navigate("../RegisterPage")}
         >
           회원가입
         </Button>
@@ -226,7 +225,7 @@ function LoginPage() {
             비밀번호 찾기
           </Link>{" "}
           |{" "}
-          <Link className="login-links" to={"/SignUpPage"}>
+          <Link className="login-links" to={"/RegisterPage"}>
             회원가입
           </Link>
         </div>
