@@ -1,5 +1,5 @@
 /* Header Styles */
-@media (max-width: 600px) {
+@media (max-width: 1500px) {
   .dropdown-Menu {
     white-space: nowrap; /* 화면이 1000px 미만으로 줄어들면 텍스트 짤림 */
     overflow: hidden;

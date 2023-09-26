@@ -2,7 +2,7 @@ html,
 body,
 #root,
 #root > div {
-  /* height: 100%; */
+  height: auto;
 }
 
 * {
@@ -30,5 +30,13 @@ body,
   .ant-carousel {
     /* 패딩으로 8 좁혔지만 8다시 늘린다.*/
     margin: 0 -8px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .footer-container {
+    white-space: nowrap; /* 화면이 600px 미만으로 줄어들면 텍스트 짤림 */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

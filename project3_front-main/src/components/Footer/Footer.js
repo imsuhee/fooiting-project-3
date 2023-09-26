@@ -12,11 +12,11 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-social">
           <div className="footer-links">
-            <Link to="/">회사소개 ㅣ</Link>
-            <Link to="/">이용약관 ㅣ</Link>
-            <Link to="/">개인정보처리방침 ㅣ</Link>
-            <Link to="/">이용안내 ㅣ</Link>
-            <Link to="/">자주묻는질문 ㅣ</Link>
+            <Link to="/">회사소개</Link>
+            <Link to="/">이용약관</Link>
+            <Link to="/">개인정보처리방침</Link>
+            <Link to="/">이용안내</Link>
+            <Link to="/">자주묻는질문</Link>
           </div>
           <div className="footer-service">
             <h4>사업자등록변호 : 100-01-01891 </h4>
@@ -34,9 +34,9 @@ function Footer() {
         {/* Footer에 표시할 여러 링크. */}
         <div className="footer-service">
           <h1>고객센터</h1>
-          <h1>070-8989-7649</h1>
-          <h5>평일 오전 10시 ~ 오후 6시</h5>
-          <h5>(점심시간) 오후1시30분 ~ 오후 2시30분</h5>
+          <h2>070-8989-7649</h2>
+          <h3>평일 오전 10시 ~ 오후 6시</h3>
+          <h3>(점심시간) 오후1시30분 ~ 오후 2시30분</h3>
         </div>
       </div>
     </div>

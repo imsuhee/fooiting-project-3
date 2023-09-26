@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { localurl } from "../utils/localUrl";
 
 //----------완료!!!!-----------
@@ -35,7 +35,7 @@ function UserProfile() {
       });
   }, []);
 
-  return <div>{isAuthenticated ? `${userNickname}` : ""}</div>;
+  return isAuthenticated ? `${userNickname}님` : "";
 }
 
 export default UserProfile;

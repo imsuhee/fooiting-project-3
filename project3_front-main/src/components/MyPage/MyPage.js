@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../Style/MyPage.css";
+import UserProfile from "../UserProfile.js";
 
 function MyPage() {
   return (
     <div className="wrap">
       <div className="greenContainer">
         {/* <div className="grade"></div> */}
-        <div className="name">마이페이지</div>
+        <div className="name">
+          <UserProfile /> 마이페이지
+        </div>
       </div>
       <div className="summaryContainer">
         <Link to="/" className="Linkitem">

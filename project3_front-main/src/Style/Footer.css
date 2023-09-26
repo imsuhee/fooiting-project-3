@@ -7,24 +7,12 @@
 }
 .footer {
   background-color: #fcc555;
-
-  height: 500px;
-}
-.social-icon {
-  /*푸터쪽 아이콘*/
-  color: #000000;
-  font-size: 50px;
-  margin-right: 10px;
-}
-
-.social-icon:hover {
-  /*푸터쪽 아이콘 선택시*/
-  color: #fff;
+  height: 400px;
 }
 
 .footer-links {
   display: flex;
-  font-size: 20px;
+  font-size: 17px;
   margin-bottom: 30px;
 }
 
@@ -46,17 +34,17 @@
   display: flex;
   justify-content: space-between; /* 좌우 양끝에 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
-  padding: 10px 20px; /* 위아래 여백 설정 */
+  padding: 0px 20px 50px; /* 위아래 여백 설정 */
   color: #fff; /* 텍스트 색상 설정 */
 }
 
 .footer-img img {
-  width: 200px; /* 원하는 너비로 설정 */
-  height: auto; /* 원하는 높이로 설정 */
+  margin-left: 10px;
+  margin-top: 30px;
 }
 
 .footer-company {
-  font-size: 20px;
+  font-size: 17px;
   color: #000000;
   padding-bottom: 10px;
   text-decoration: none;
@@ -64,5 +52,5 @@
 }
 .footer-service {
   color: #000000;
-  font-size: 20px;
+  font-size: 17px;
 }

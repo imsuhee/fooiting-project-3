@@ -113,7 +113,7 @@ function Header() {
             <>
               <div className="user-profile">
                 <div className="navbar-UserProfile">
-                  <UserProfile />님
+                  <UserProfile />
                 </div>
               </div>
               <div className="dropdown">
