@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "../../Style/Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search } from "./Search.js";
 import { SearchOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import {
-  toggleDropdown1,
-  toggleDropdown2,
+  // toggleDropdown1,
+  // toggleDropdown2,
   toggleDropdown3,
 } from "./Dropdown.js";
 import "../LoginPage";
 import UserProfile from "../UserProfile.js";
+
+//------완료---------//
 
 function Header() {
   //   const [scrolled, setScrolled] = useState(false);
@@ -30,31 +33,35 @@ function Header() {
 
   //검색창
   const { query, handleInputChange, handleSearch } = Search();
-
+  const navigate = useNavigate();
   //드롭다운
-  const [showDropdown1, setShowDropdown1] = useState(false);
-  const [showDropdown2, setShowDropdown2] = useState(false);
+  // const [showDropdown1, setShowDropdown1] = useState(false);
+  // const [showDropdown2, setShowDropdown2] = useState(false);
   const [showDropdown3, setShowDropdown3] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 여부
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 컴포넌트가 마운트될 때 로그인 상태를 확인
   useEffect(() => {
-    // 예시: 로그인 상태와 유저 닉네임을 가져오는 비동기 요청 (서버와의 통신)
-    const fetchData = async () => {
-      try {
-        // 로그인 상태 확인 및 유저 닉네임 가져오기
-        const response = await fetch("/api/user"); // 서버 API 엔드포인트로 요청
-        if (response.ok) {
-          const data = await response.json();
-          setIsLoggedIn(data.isLoggedIn); // 로그인 상태 업데이트
-        }
-      } catch (error) {
-        console.error("로그인 상태 및 닉네임 가져오기 실패:", error);
-      }
-    };
+    const token = localStorage.getItem("refreshToken");
+    setIsLoggedIn(!!token); // 토큰이 있는 경우에만 로그인 상태로 간주
+  }, []);
 
-    fetchData(); // 데이터 가져오는 함수 호출
-  }, []); // 빈 배열은 한 번만 호출되도록 설정
-
+  const doTempLogout = () => {
+    try {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      alert("로그아웃 되셨습니다.");
+      // 로그아웃시 새로고침
+      window.location.reload();
+      navigate("/");
+    } catch (error) {
+      // 페이지 이동 또는 다른 작업 수행
+      console.error("로그아웃 에러:", error);
+      message.error(
+        `로그아웃 중 오류가 발생했습니다. 자세한 정보: ${error.message}`
+      );
+    }
+  };
   return (
     //<div className={scrolled ? "scrolled-header" : "header"}>
     <div id="header">
@@ -82,21 +89,11 @@ function Header() {
         {/*상단 메뉴1 */}
         <div className="dropdown-Menu">
           <div className="dropdown">
-            <span
-              className="navbarMenu"
-              onClick={() => toggleDropdown1(showDropdown1, setShowDropdown1)}
-            >
-              웨이팅TOP
-            </span>
-            {showDropdown1 && (
-              <div className="dropdownContent">
-                <Link to="../Main">하위 메뉴 1-1</Link>
-                <Link to="/">하위 메뉴 1-2</Link>
-                <Link to="/">하위 메뉴 1-3</Link>
-              </div>
-            )}
+            <Link to="/restaurant/top" className="navbarMenu">
+              실시간 TOP
+            </Link>
           </div>
-          <div className="dropdown">
+          {/* <div className="dropdown">
             <span
               className="navbarMenu"
               onClick={() => toggleDropdown2(showDropdown2, setShowDropdown2)}
@@ -110,30 +107,47 @@ function Header() {
                 <Link to="/">하위 메뉴 1-3</Link>
               </div>
             )}
-          </div>
-          <div className="dropdown">
-            {isLoggedIn ? (
-              // 로그인한 경우
-              <div className="navbarMenu">
-                <UserProfile />
+          </div> */}
+
+          {isLoggedIn ? (
+            <>
+              <div className="user-profile">
+                <div className="navbar-UserProfile">
+                  <UserProfile />님
+                </div>
               </div>
-            ) : (
-              // 로그인하지 않은 경우
-              <Link to="../LoginPage" className="navbarMenu">
-                로그인
-              </Link>
-            )}
-          </div>
-          <div className="dropdown">
-            <Link to="../MyPage" className="navbarMenu">
-              마이페이지
-            </Link>
-          </div>
-          <div className="dropdown">
-            <Link className="navbarMenu" to={"../SignUpPage"}>
-              회원가입
-            </Link>
-          </div>
+              <div className="dropdown">
+                <div className="navbarMenu">
+                  <button onClick={doTempLogout} className="logout-button">
+                    로그아웃
+                  </button>
+                </div>
+              </div>
+              <div className="dropdown">
+                <Link to="/user/mypage" className="navbarMenu">
+                  마이페이지
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="dropdown">
+                <div className="navbarMenu">
+                  <Link to="/user/login" className="navbarMenu">
+                    로그인
+                  </Link>
+                </div>
+              </div>
+              <div className="dropdown">
+                <div className="navbarMenu">
+                  <Link to="/user/signup" className="navbarMenu">
+                    회원가입
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
+
           <div className="dropdown">
             <span
               className="navbarMenu"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { localurl } from "../utils/localUrl";
 import { formatTime } from "../utils/formatTime";
-import KakaoMap from "./KakaoMap";
+import KakaoMap from "../action/KakaoMap";
 import { useNavigate } from "react-router-dom";
 
 //식당 상세페이지 (재만님 담당)

@@ -4,7 +4,8 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import { localurl } from "../utils/localUrl";
 import "../Style/Login.css";
 
-//회원가입 완료
+//------------회원가입 완료-------------//
+
 function RegisterPage() {
   const [username, setUsername] = useState(""); // 사용자 ID
   const [password, setPassword] = useState(""); // 비밀번호
@@ -46,17 +47,17 @@ function RegisterPage() {
 
   const handleRegister = () => {
     // 아이디와 비밀번호가 패턴과 일치하는지 확인
-    // if (!userid.test(mid)) {
-    //   alert("아이디는 3~16자의 영문, 숫자, 하이픈, 언더스코어만 허용됩니다.");
-    //   return;
-    // }
+    if (!userid.test(username)) {
+      alert("아이디는 3~16자의 영문, 숫자, 하이픈, 언더스코어만 허용됩니다.");
+      return;
+    }
 
-    // if (!userpassword.test(mpw)) {
-    //   alert(
-    //     "비밀번호는 8자 이상의 대소문자, 숫자, 특수문자를 포함해야 합니다."
-    //   );
-    //   return;
-    // }
+    if (!userpassword.test(password)) {
+      alert(
+        "비밀번호는 8자 이상의 대소문자, 숫자, 특수문자를 포함해야 합니다."
+      );
+      return;
+    }
     fetch(`${localurl}/user/join`, {
       method: "POST",
       headers: {
@@ -75,9 +76,10 @@ function RegisterPage() {
     })
       .then((response) => {
         if (response.ok) {
-          alert("회원가입 되었습니다 환영합니다.");
+          alert("회원가입이 정상적으로 이루어졌습니다.");
+          navigate("/user/login");
         } else {
-          alert("회원가입에 실패하셨습니다. 다시 시도해주세요.");
+          alert("회원가입이 실패했습니다.");
         }
       })
       .catch((error) => {
@@ -91,9 +93,6 @@ function RegisterPage() {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-  };
-  const handleAgreeChange = (e) => {
-    setAgreed(e.target.checked);
   };
 
   return (
@@ -126,6 +125,7 @@ function RegisterPage() {
         >
           {/*아이디 input 안 내용물*/}
           <Input
+            className="my-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             size="large"
@@ -150,6 +150,7 @@ function RegisterPage() {
         >
           {/*이름 input 안 내용물*/}
           <Input
+            className="my-input"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             size="large"
@@ -173,6 +174,7 @@ function RegisterPage() {
           ]}
         >
           <Input.Password
+            className="my-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             size="large"
@@ -198,7 +200,11 @@ function RegisterPage() {
             }),
           ]}
         >
-          <Input.Password size="large" placeholder="비밀번호 확인" />
+          <Input.Password
+            size="large"
+            className="my-input"
+            placeholder="비밀번호 확인"
+          />
         </Form.Item>
 
         {/*이메일*/}
@@ -222,6 +228,7 @@ function RegisterPage() {
         >
           {/*이메일input 안 내용물*/}
           <Input
+            className="my-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             size="large"
@@ -246,10 +253,12 @@ function RegisterPage() {
         >
           {/*생년월일input 안 내용물*/}
           <Input
+            className="my-input"
+            type="date"
             value={birth}
             onChange={(e) => setBirth(e.target.value)}
             size="large"
-            placeholder="생년월일 (예: 19900101)"
+            placeholder=""
           />
         </Form.Item>
 
@@ -271,6 +280,7 @@ function RegisterPage() {
           {/*핸드폰 input 안 내용물*/}
 
           <Input
+            className="my-input"
             size="large"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -298,9 +308,9 @@ function RegisterPage() {
           ]}
         >
           <Checkbox
-            className="checkbox"
             checked={agreed}
-            onChange={handleAgreeChange}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="checkbox"
           >
             회원가입 약관에 동의합니다.
           </Checkbox>
@@ -309,9 +319,8 @@ function RegisterPage() {
         {/*로그인 화면이동*/}
       </Form>
       <div className="login-links">
-        이미 계정이 있으신가요?{" "}
-        <span className="link" onClick={() => navigate("/LoginPage")}>
-          로그인하기
+        <span className="link" onClick={() => navigate("/user/login")}>
+          이미 계정이 있으신가요? 로그인하기
         </span>
       </div>
     </div>

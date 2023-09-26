@@ -3,6 +3,7 @@ import { localurl } from "../utils/localUrl";
 import { useNavigate } from "react-router-dom";
 import Post from "../utils/Post";
 
+//식당등록 부분 (재만님 담당)
 function RestaurantForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

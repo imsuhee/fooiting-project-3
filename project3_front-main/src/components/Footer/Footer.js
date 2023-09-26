@@ -4,7 +4,7 @@ import "../../Style/Footer.css";
 
 function Footer() {
   return (
-    <div id="footer">
+    <div className="footer">
       {/*로고*/}
       <Link className="footer-img" to="/">
         <img src="/img/icons/fooiting.png" alt="" />

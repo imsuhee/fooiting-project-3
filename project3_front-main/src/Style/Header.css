@@ -1,22 +1,22 @@
 /* Header Styles */
+@media (max-width: 600px) {
+  .dropdown-Menu {
+    white-space: nowrap; /* 화면이 1000px 미만으로 줄어들면 텍스트 짤림 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #d66161;
-  height: 120px;
+  height: 90px;
   padding: 10px 0px;
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease;
   margin-top: 5px;
-}
-@media (max-width: 600px) {
-  .dropdown-Menu {
-    white-space: nowrap; /* 화면이 600px 미만으로 줄어들면 텍스트 짤림 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 
 #header-area img {
@@ -48,6 +48,7 @@
   margin-top: 30px;
   align-items: center;
   justify-content: space-around; /*좌우 정렬을 유지 */
+  border-bottom: 2px solid #ccc;
 }
 
 /* 일반 메뉴 항목 */
@@ -101,7 +102,7 @@
 
 /* 드롭다운 내용의 링크에 호버 효과 */
 .dropdownContent a:hover {
-  color: #ffa8a8;
+  color: #ffb012;
 }
 
 /* 스크롤된 헤더 스타일 */
@@ -125,10 +126,11 @@
 
 .search-input {
   padding: 10px;
+  height: 30px;
   border: none;
   background-color: #ebebeb;
   border-radius: 32px;
-  width: 350px;
+  width: 400px;
   font-size: 17px;
 }
 
@@ -147,4 +149,30 @@
   border-color: #fff;
   border: none;
   border-bottom: 1px solid #ccc;
+}
+.logout-button {
+  background-color: #fff;
+  width: 110px;
+  height: 35px;
+  font-size: 17px;
+  border: 1px solid #ccc;
+  border-radius: 32px;
+  cursor: pointer;
+}
+.logout-button:hover {
+  background-color: #fcc555; /* 원하는 호버 배경색으로 변경 */
+}
+
+/* 유저 이름*/
+.user-profile {
+  position: relative;
+  display: table-cell;
+  justify-content: center;
+}
+/* 유저 이름*/
+.navbar-UserProfile {
+  margin: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  display: flex;
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { localurl } from "../utils/localUrl";
 
+//----------완료!!!!-----------
+
 function UserProfile() {
   const [userNickname, setUserNickname] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -33,15 +35,7 @@ function UserProfile() {
       });
   }, []);
 
-  return (
-    <div>
-      {isAuthenticated ? (
-        <p>접속한 유저: {userNickname}</p>
-      ) : (
-        <p>로그인이 필요합니다.</p>
-      )}
-    </div>
-  );
+  return <div>{isAuthenticated ? `${userNickname}` : ""}</div>;
 }
 
 export default UserProfile;

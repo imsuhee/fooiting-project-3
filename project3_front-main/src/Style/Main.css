@@ -20,13 +20,12 @@
   background-color: #fff; /* 호버 시 배경색 변경 (선택사항) */
 }
 
-#banner {
-  max-height: 100vh;
-  overflow: hidden; /* 이미지가 넘칠 경우를 대비하여 숨김 처리 */
+.banner {
+  max-height: 500px;
 }
 
-#banner > img {
+.banner img {
   width: 100%;
   height: 500px;
-  object-fit: cover; /* 배너 이미지를 좌우 양옆까지 꽉 차게 표시 */
+  object-fit: cover;
 }
