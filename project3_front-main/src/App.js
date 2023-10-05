@@ -13,6 +13,7 @@ import RestaurantList from "./components/RestaurantList";
 import CategoryRestaurantList from "./components/CategoryRestaurantList";
 import TopRatedRestaurantList from "./components/TopRatedRestaurantList";
 import AdminRestaurantList from "./components/AdminRestaurantList";
+import NotFound from "./components/Error/NotFound";
 import jwt_decode from "jwt-decode";
 //import UserProfile from "./components/UserProfile";
 
@@ -111,6 +112,8 @@ function App() {
               />
             }
           />
+          {/*NotFound 페이지*/}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />
