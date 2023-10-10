@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Checkbox, message } from "antd";
-//import KakaoApi from "../../action/KakaoApi.js"; // KakaoApi
-// import moment from "moment";
-// import axios from "axios";
-// import Cookie from "js-cookie";
 import { localurl } from "../utils/localUrl";
 import "../Style/Login.css";
 import KakaoApi from "../action/KakaoApi";
@@ -12,10 +8,10 @@ import KakaoApi from "../action/KakaoApi";
 //로그인 화면(완료)
 
 function LoginPage() {
+  const navigate = useNavigate();
   // useState를 사용하여 ID와 비밀번호를 상태로 관리합니다.
   const [idValue, setId] = useState("");
   const [pwValue, setPw] = useState("");
-  const navigate = useNavigate();
 
   const username = /^[A-Za-z0-9_-]{5,20}$/;
   const userpassword =
@@ -69,69 +65,11 @@ function LoginPage() {
       console.log("아이디와 비밀번호를 입력하세요.");
       return;
     }
-    // try {
-    //   // 서버에 로그인 요청을 보냅니다.
-    //   const response = await axios.post(`${localurl}/Login`, {
-    //     userid: values.userid,
-    //     password: values.password,
-    //   });
-    //   const { accessToken, refreshToken } = response.data;
-    //   // Access Token 저장
-    //   Cookie.set("accessToken", accessToken);
-    //   // Refresh Token 저장
-    //   Cookie.set("refreshToken", refreshToken);
-
-    //   // Access Token 만료 시간 설정 (15분)
-    //   const expiresAt = moment().add(15, "minutes").toDate();
-    //   Cookie.set("expiresAt", expiresAt);
-
-    //   //메인으로 이동(관리자시에는?(수정해야함))
-    //   navigate("/");
-    //   return true; // 로그인 성공
-    // } catch (error) {
-    //   // 페이지 이동 또는 다른 작업 수행
-    //   console.error("로그인 에러:", error);
-    //   message.error(
-    //     `로그인 중 오류가 발생했습니다. 자세한 정보: ${error.message}`
-    //   );
-    //   return false; // 로그인 실패
-    // }
   };
-
-  // 로그아웃시 메인 홈페이지로 돌아가게끔 구현해야된다
-  // const doTempLogout = () => {
-  //   try {
-  //     localStorage.removeItem("accessToken");
-  //     localStorage.removeItem("refreshToken");
-  //     alert("로그아웃 되셨습니다.");
-  //     // 로그아웃시 새로고침
-  //     window.location.reload();
-  //     navigate("/");
-  //   } catch (error) {
-  //     // 페이지 이동 또는 다른 작업 수행
-  //     console.error("로그아웃 에러:", error);
-  //     message.error(
-  //       `로그아웃 중 오류가 발생했습니다. 자세한 정보: ${error.message}`
-  //     );
-  //   }
-  // };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  // const handleLogout = useCallback(() => {
-  //   // 토큰 및 인증 상태 제거
-  //   try {
-  //     localStorage.removeItem("accessToken");
-  //     localStorage.removeItem("refreshToken");
-  //     localStorage.removeItem("expiresAt");
-  //     // 로그아웃시 새로고침
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
 
   return (
     <div className="login-form-container">

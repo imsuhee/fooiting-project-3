@@ -324,24 +324,6 @@ function RegisterPage() {
         </span>
       </div>
     </div>
-    //   <div>
-    //     <input
-    //       type="text"
-    //       value={mid}
-    //       onChange={(e) => setMid(e.target.value)}
-    //       placeholder="ID"
-    //     />
-    //     <br />
-    //     <input
-    //       type="password"
-    //       value={mpw}
-    //       onChange={(e) => setMpw(e.target.value)}
-    //       placeholder="Password"
-    //     />
-    //     <br />
-    //     <button onClick={handleSignup}>Signup</button>
-    //   </div>
-    // </div>
   );
 }
 

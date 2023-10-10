@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { localurl } from "../utils/localUrl";
-
+import { Link } from "react-router-dom";
+import "../Style/Header.css";
 //----------완료!!!!-----------
 
 function UserProfile() {
@@ -29,13 +30,17 @@ function UserProfile() {
         return response.text();
       })
       .then((data) => {
-        // 닉네임 잘 출력되는 확인
-        // console.log(data);
         setUserNickname(data);
       });
   }, []);
 
-  return isAuthenticated ? `${userNickname}님` : "";
+  return isAuthenticated ? (
+    <p className="UserProfile">{userNickname}님</p>
+  ) : (
+    <Link to={"/user/login"} className="User-Profile">
+      로그인
+    </Link>
+  );
 }
 
 export default UserProfile;

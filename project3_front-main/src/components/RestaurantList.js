@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { localurl } from "../utils/localUrl";
 import { formatTime } from "../utils/formatTime";
+import { useNavigate } from "react-router-dom";
+import "../Style/RestaurantList.css";
 
 function RestaurantList() {
+  const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
 
-  // 마운트시 전체 등록된 식당 전체 출력
-  //업체 등록 페이지(재만님 담당)
   useEffect(() => {
-    fetch(`${localurl}/store/list`, {
+    fetch(`${localurl}/store/listAllWithImageOne`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -23,37 +24,45 @@ function RestaurantList() {
 
   return (
     <div>
-      <h3>전체 리스트</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>식당명</th>
-            <th>위치</th>
-            <th>카테고리</th>
-            <th>소개</th>
-            <th>오픈 시간</th>
-            <th>마감 시간</th>
-            <th>전화번호</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div>
+        <h3 className="mb-10 text-4xl flex justify-center">식당 목록</h3>
+        <div className="list-container">
           {restaurants.map((restaurant) => (
-            <tr key={restaurant.id}>
-              <td>
-                <Link to={`/restaurant/${restaurant.id}`}>
-                  {restaurant.name}
-                </Link>
-              </td>
-              <td>{restaurant.location}</td>
-              <td>{restaurant.category}</td>
-              <td>{restaurant.description}</td>
-              <td>{formatTime(restaurant.openingTime)}</td>
-              <td>{formatTime(restaurant.closingTime)}</td>
-              <td>{restaurant.callNumber}</td>
-            </tr>
+            <ul className="item shadow-md" key={restaurant.id}>
+              <li>
+                <img
+                  // 이미지 클릭시에도 식당 상세페이지로 이동
+                  onClick={() => {
+                    navigate(`/restaurant/${restaurant.id}`);
+                  }}
+                  className="food-img cursor-pointer"
+                  src={`${localurl}/store/${restaurant.id}/image/${restaurant.imageOneId}`}
+                  alt={`${restaurant.name}-${restaurant.imageOneId}`}
+                />
+              </li>
+              <ul className="restaurant-text">
+                <li>
+                  <Link
+                    className="restaurant-name"
+                    to={`/restaurant/${restaurant.id}`}
+                  >
+                    {restaurant.name}
+                  </Link>
+                </li>
+                <li className="description-text">{restaurant.description}</li>
+                <ul className="format-time">
+                  <li>영업시간: {formatTime(restaurant.openingTime)}~</li>
+                  <li>{formatTime(restaurant.closingTime)}</li>
+                </ul>
+                <li className="callNumber-text">
+                  전화번호: {restaurant.callNumber}
+                </li>
+                <li className="category-text">{restaurant.category}</li>
+              </ul>
+            </ul>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 }

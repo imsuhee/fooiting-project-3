@@ -63,7 +63,6 @@
   position: relative;
   display: table-cell;
   cursor: pointer;
-  justify-content: center;
   font-size: 17px;
 }
 
@@ -173,6 +172,19 @@
 .navbar-UserProfile {
   margin: 20px;
   font-size: 17px;
-  font-weight: bold;
   display: flex;
+}
+.User-Profile {
+  text-decoration: none; /* 밑줄 제거 */
+  color: #000000;
+}
+.UserProfile {
+  text-decoration: none; /* 밑줄 제거 */
+  color: #000000;
+  font-weight: bold;
+}
+
+.dropdown-Menu {
+  display: flex;
+  align-items: center;
 }

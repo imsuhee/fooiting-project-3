@@ -3,7 +3,8 @@ import { localurl } from "../utils/localUrl";
 import { useNavigate } from "react-router-dom";
 import Post from "../utils/Post";
 
-//식당등록 부분 (재만님 담당)
+import "../Style/RestaurantForm.css";
+
 function RestaurantForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -115,118 +116,146 @@ function RestaurantForm() {
 
   return (
     <div>
-      <p>업체 등록</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        {/* <input
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-        <br /> */}
-        <input
-          className="user_enroll_text"
-          placeholder="Address"
-          type="text"
-          required={true}
-          name="location"
-          onChange={handleInput}
-          value={enroll_company.address}
-        />
-        <button onClick={handleComplete}>우편번호 찾기</button>
-        {popup && (
-          <Post
-            company={enroll_company}
-            setcompany={(company) => {
-              setEnroll_company(company);
-              setFormData((prev) => ({
-                ...prev,
-                address: company.address,
-              }));
-            }}
-          ></Post>
-        )}
-        <br />
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          required
-        >
-          <option value="">-- 카테고리 선택 --</option>
-          <option value="한식">한식</option>
-          <option value="중식">중식</option>
-          <option value="일식">일식</option>
-          <option value="양식">양식</option>
-          <option value="카페">카페</option>
-          <option value="피자">피자</option>
-          <option value="치킨">치킨</option>
-          <option value="분식">분식</option>
-          <option value="고기">고기</option>
-          <option value="호텔">호텔</option>
-          <option value="오마카세">오마카세</option>
-          <option value="파인다이닝">파인다이닝</option>
-        </select>
-        <br />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          name="openingTime"
-          type="time"
-          placeholder="Opening Time"
-          value={formData.openingTime}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          name="closingTime"
-          type="time"
-          placeholder="Closing Time"
-          value={formData.closingTime}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        {fileInputs.map((index) => (
-          <div key={index}>
+      <h3 className="titleName">업체 등록</h3>
+      <div className="registration-contener">
+        <form onSubmit={handleSubmit}>
+          <input
+            className="input-box"
+            name="name"
+            type="text"
+            placeholder="상호명"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <div>
             <input
-              type="file"
-              name={"image" + index}
-              onChange={(e) => handleFileChange(e, index)}
+              className="input-box"
+              placeholder="주소"
+              type="text"
+              required={true}
+              name="location"
+              onChange={handleInput}
+              value={enroll_company.address}
             />
-            <br />
+            <button className="submit-button" onClick={handleComplete}>
+              우편번호 찾기
+            </button>
           </div>
-        ))}
-        <button type="button" onClick={addFileInput}>
-          +
-        </button>
-        <br />
-        <input
-          name="callNumber"
-          placeholder="Call Number"
-          value={formData.callNumber}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+
+          {popup && (
+            <Post
+              company={enroll_company}
+              setcompany={(company) => {
+                setEnroll_company(company);
+                setFormData((prev) => ({
+                  ...prev,
+                  address: company.address,
+                }));
+              }}
+            ></Post>
+          )}
+          <br />
+          <select
+            className="select-box"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="">-- 카테고리 선택 --</option>
+            <option value="한식">한식</option>
+            <option value="중식">중식</option>
+            <option value="일식">일식</option>
+            <option value="양식">양식</option>
+            <option value="카페">카페</option>
+            <option value="피자">피자</option>
+            <option value="치킨">치킨</option>
+            <option value="분식">분식</option>
+            <option value="고기">고기</option>
+            <option value="호텔">호텔</option>
+            <option value="오마카세">오마카세</option>
+            <option value="파인다이닝">파인다이닝</option>
+          </select>
+          <br />
+          <textarea
+            className="textarea-box"
+            name="description"
+            placeholder="설명"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <div className="input-timers">
+            오픈시간
+            <input
+              className="input-timer"
+              name="openingTime"
+              type="time"
+              placeholder="Opening Time"
+              value={formData.openingTime}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-timers">
+            마감시간
+            <input
+              className="input-timer"
+              name="closingTime"
+              type="time"
+              placeholder="Closing Time"
+              value={formData.closingTime}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <br />
+          {/* 이미지 업로드 */}
+          <div className="mb-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              for="file_input"
+            >
+              이미지 업로드
+            </label>
+            {fileInputs.map((index) => (
+              <div key={index} className="mb-1">
+                <input
+                  type="file"
+                  name={"image" + index}
+                  onChange={(e) => handleFileChange(e, index)}
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addFileInput}
+              className="w-full mt-1 p-2 rounded text-white bg-gray-800 hover:bg-gray-700"
+            >
+              이미지 추가
+            </button>
+          </div>
+          <input
+            className="input-box"
+            type="text"
+            name="callNumber"
+            placeholder="전화번호"
+            value={formData.callNumber}
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <div className="mt-5">
+            <button className="submit-button" type="submit">
+              업체 등록하기
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

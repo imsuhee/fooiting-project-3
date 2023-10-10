@@ -23,10 +23,10 @@
 
 .Nav-item {
   display: inline-block;
-  margin: 0 40px; /* 각 아이템 간격 조절 */
+  margin: 0 10px; /* 각 아이템 간격 조절 */
   text-align: center; /* 텍스트 가운데 정렬 */
   text-decoration: none;
-  padding: 30px;
+  padding: 10px;
   color: #000000;
 }
 

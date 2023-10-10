@@ -4,8 +4,8 @@ import { localurl } from "../utils/localUrl";
 import { formatTime } from "../utils/formatTime";
 import KakaoMap from "../action/KakaoMap";
 import { useNavigate } from "react-router-dom";
+import "../Style/RestaurantDetailPage.css";
 
-//식당 상세페이지 (재만님 담당)
 function RestaurantDetailPage() {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null); // 이 부분은 식당 하나의 상세 정보만을 가져오도록 수정하였습니다.
@@ -64,24 +64,35 @@ function RestaurantDetailPage() {
   return (
     <div>
       <h3>식당 상세 정보 페이지</h3>
-      <h4>{restaurant.name}</h4>
-      <KakaoMap location={restaurant.location} />
-      <p>위치: {restaurant.location}</p>
-      <p>카테고리: {restaurant.category}</p>
-      <p>설명: {restaurant.description}</p>
-      <p>오픈 시간: {formatTime(restaurant.openingTime)}</p>
-      <p>마감 시간: {formatTime(restaurant.closingTime)}</p>
-      {restaurant.imageIds &&
-        restaurant.imageIds.map((restaurantImageId, index) => (
-          <img
-            key={index}
-            src={`${localurl}/store/${id}/image/${restaurantImageId}`}
-            alt={`${restaurant.name}-${index}`}
-            width={"200"}
-          />
-        ))}
-      <p>전화번호: {restaurant.callNumber}</p>
-      <button onClick={reserveRestaurant}>예약하기</button>
+      <div className="detail-container">
+        <h4 className="title-text">{restaurant.name}</h4>
+
+        <div>
+          <p>소개: {restaurant.description}</p>
+          <p>전화번호: {restaurant.callNumber}</p>
+        </div>
+        <button className="button-1" onClick={reserveRestaurant}>
+          예약하기
+        </button>
+
+        <p>카테고리: {restaurant.category}</p>
+        <p>오픈 시간: {formatTime(restaurant.openingTime)}</p>
+        <p>마감 시간: {formatTime(restaurant.closingTime)}</p>
+        <div>
+          {restaurant.imageIds &&
+            restaurant.imageIds.map((restaurantImageId, index) => (
+              <img
+                key={index}
+                src={`${localurl}/store/${id}/image/${restaurantImageId}`}
+                alt={`${restaurant.name}-${index}`}
+                width={"200"}
+              />
+            ))}
+        </div>
+
+        <KakaoMap location={restaurant.location} />
+        <p>위치: {restaurant.location}</p>
+      </div>
     </div>
   );
 }

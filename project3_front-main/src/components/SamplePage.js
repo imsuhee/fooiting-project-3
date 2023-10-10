@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { localurl } from "../utils/localUrl";
 
-//마이페이지 관련 페이지 아직 구현 x
-
 function SamplePage() {
   const [result, setResult] = useState(null);
 
@@ -12,8 +10,7 @@ function SamplePage() {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
-      // throw "Cannot Find Access Token";
-      throw new Error("Cannot Find Access Token"); // 에러 객체를 던집니다.
+      throw "Cannot Find Access Token";
     }
 
     const authHeader = { Authorization: `Bearer ${accessToken}` };
@@ -35,15 +32,14 @@ function SamplePage() {
           return callServer();
         }
 
-        // throw data.msg;
-        throw new Error(data.msg); // 에러 객체를 던집니다.
+        throw data.msg;
       }
 
       return await response.json();
     } catch (err) {
       throw err;
     }
-  }, [callRefresh]);
+  }, []);
 
   const callRefresh = useCallback(async () => {
     const accessToken = localStorage.getItem("accessToken");
